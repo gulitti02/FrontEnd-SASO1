@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAS01 - Jogo Da Velha(Dificil)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="board x"> <!-- Essa class board vai abrigar as celulas do jogo da velha que tambem serão classes-->
+        <div class="cell x" date-cell></div> <!-- Crie Um Atributo para a div, para quando for chamar essa mesma celula no javascrip, ao invez de chamar pela class board(que será usada no css) usarei o metodo para o javascript-->
+        <div class="cell circle" date-cell></div>
+        <div class="cell" date-cell></div>
+        <div class="cell" date-cell></div>
+        <div class="cell" date-cell></div>
+        <div class="cell" date-cell></div>
+        <div class="cell" date-cell></div>
+        <div class="cell" date-cell></div>
+        <div class="cell" date-cell></div>
+       
+    </div>
+
+    <div class="winning-message" date-winning-message> <!-- criando as mensagens para quando o X ganhar ou quando o O GANHAR-->
+        <p>
+           X Venceu! 
+        </p>
+        <button> Reiniciar </button> <!-- Botão  Para Reiniciar -->
+    </div>
+</body>
+<script src="script.js"></script>
+</html>   
