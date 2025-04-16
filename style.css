@@ -24,6 +24,11 @@ body { /* Aqui estamos criando um ga cor gradient para o Jogo da velha*/
     justify-items: center;
     align-items: center;
     grid-template-columns: repeat(3, auto);
+
+}
+.board.x .cell:not(.x):not(.circle):hover::after,
+.board.x .cell:not(.x):not(.circle):hover::before{
+    background: black;
 }
 
 .cell{ /* O campo do jogo da velha precisa estar bem organizado, assim nesta parte do codigo estamos indicando que ficará centralizado, e como as celulas vão se comportar */
