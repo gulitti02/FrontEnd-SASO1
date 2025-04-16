@@ -1,63 +1,84 @@
 <!DOCTYPE html>
- <html lang="en">
- <head>
-     <meta charset="UTF-8">
-     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
-     <link rel="stylesheet" href="./css/style.css">
- 
-     <title>Piano | Manual do Dev</title>
- </head>
- <body>
-     
-     <section class="piano">
- 
-         <section class="controls">
- 
-             <h1>Manual do Dev | Piano</h1>
- 
-             <label class="checkbox__label">
-                 Show keys
-                 <span class="switcher">
-                     <span class="switcher__button"></span>
-                 </span>
-                 <input type="checkbox" class="checkbox__keys" hidden>
-             </label>
- 
-         </section>
- 
-         <section class="piano__keys disabled-keys">
- 
-             <div class="key white" data-note="1"><span>TAB</span></div>
-             <div class="key black" data-note="2"><span>1</span></div>
-             <div class="key white" data-note="3"><span>q</span></div>
-             <div class="key black" data-note="4"><span>2</span></div>
-             <div class="key white" data-note="5"><span>w</span></div>
-             <div class="key white" data-note="6"><span>e</span></div>
-             <div class="key black" data-note="7"><span>4</span></div>
-             <div class="key white" data-note="8"><span>r</span></div>
-             <div class="key black" data-note="9"><span>5</span></div>
-             <div class="key white" data-note="10"><span>t</span></div>
-             <div class="key black" data-note="11"><span>6</span></div>
-             <div class="key white" data-note="12"><span>y</span></div>
-             <div class="key white" data-note="13"><span>u</span></div>
-             <div class="key black" data-note="14"><span>8</span></div>
-             <div class="key white" data-note="15"><span>i</span></div>
-             <div class="key black" data-note="16"><span>9</span></div>
-             <div class="key white" data-note="17"><span>o</span></div>
-             <div class="key white" data-note="18"><span>p</span></div>
-             <div class="key black" data-note="19"><span>-</span></div>
-             <div class="key white" data-note="20"><span>[</span></div>
-             <div class="key black" data-note="21"><span>=</span></div>
-             <div class="key white" data-note="22"><span>]</span></div>
-             <div class="key black" data-note="23"><span>&larr;</span></div>
-             <div class="key white" data-note="24"><span>\</span></div>
- 
-         </section>
- 
-     </section>
- 
-     <script src="./js/script.js"></script>
- </body>
- </html>
+<html lang="en"> <!-- Define que o conteúdo da página está em inglês -->
+<head>
+    <!-- Define o conjunto de caracteres utilizado na página, garantindo compatibilidade com caracteres especiais -->
+    <meta charset="UTF-8">
+
+    <!-- Garante compatibilidade com versões mais antigas do Internet Explorer -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Torna a página responsiva em dispositivos móveis. Ajusta a escala do layout conforme o dispositivo -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Link para o arquivo CSS que estiliza a página (provavelmente em ./css/style.css) -->
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- Título que aparece na aba do navegador -->
+    <title>Piano | Manual do Dev</title>
+</head>
+<body>
+    
+    <!-- Seção principal do piano -->
+    <section class="piano">
+        
+        <!-- Seção de controles, onde fica o título e o botão para mostrar ou esconder as teclas -->
+        <section class="controls">
+            
+            <!-- Título da seção -->
+            <h1>Manual do Dev | Piano</h1>
+
+            <!-- Label contendo um switch (alternador) para exibir ou esconder as teclas do piano -->
+            <label class="checkbox__label">
+                Show keys <!-- Texto exibido ao lado do switch (alternador) -->
+
+                <!-- Switcher estilizado para alternar entre mostrar ou esconder as teclas -->
+                <span class="switcher">
+                    <span class="switcher__button"></span> <!-- Botão do switch -->
+                </span>
+
+                <!-- Checkbox escondido que serve como controle real para alternar as teclas -->
+                <input type="checkbox" class="checkbox__keys" hidden>
+            </label>
+
+        </section>
+        
+        <!-- Seção que contém as teclas do piano -->
+        <section class="piano__keys disabled-keys">
+            
+            <!-- Cada tecla do piano é representada por uma div com a classe "key" e uma classe adicional dependendo se é branca ou preta -->
+            <!-- O atributo data-note é utilizado para associar uma nota ao som da tecla, que será tratado com JavaScript -->
+            <!-- O conteúdo dentro de cada <span> representa a tecla do teclado que ativa a nota correspondente -->
+            
+            <div class="key white" data-note="1"><span>TAB</span></div> <!-- Tecla branca associada à nota 1, ativada pela tecla TAB -->
+            <div class="key black" data-note="2"><span>1</span></div> <!-- Tecla preta associada à nota 2, ativada pela tecla 1 -->
+            <div class="key white" data-note="3"><span>q</span></div> <!-- Tecla branca associada à nota 3, ativada pela tecla q -->
+            <div class="key black" data-note="4"><span>2</span></div> <!-- Tecla preta associada à nota 4, ativada pela tecla 2 -->
+            <div class="key white" data-note="5"><span>w</span></div> <!-- Tecla branca associada à nota 5, ativada pela tecla w -->
+            <div class="key white" data-note="6"><span>e</span></div> <!-- Tecla branca associada à nota 6, ativada pela tecla e -->
+            <div class="key black" data-note="7"><span>4</span></div> <!-- Tecla preta associada à nota 7, ativada pela tecla 4 -->
+            <div class="key white" data-note="8"><span>r</span></div> <!-- Tecla branca associada à nota 8, ativada pela tecla r -->
+            <div class="key black" data-note="9"><span>5</span></div> <!-- Tecla preta associada à nota 9, ativada pela tecla 5 -->
+            <div class="key white" data-note="10"><span>t</span></div> <!-- Tecla branca associada à nota 10, ativada pela tecla t -->
+            <div class="key black" data-note="11"><span>6</span></div> <!-- Tecla preta associada à nota 11, ativada pela tecla 6 -->
+            <div class="key white" data-note="12"><span>y</span></div> <!-- Tecla branca associada à nota 12, ativada pela tecla y -->
+            <div class="key white" data-note="13"><span>u</span></div> <!-- Tecla branca associada à nota 13, ativada pela tecla u -->
+            <div class="key black" data-note="14"><span>8</span></div> <!-- Tecla preta associada à nota 14, ativada pela tecla 8 -->
+            <div class="key white" data-note="15"><span>i</span></div> <!-- Tecla branca associada à nota 15, ativada pela tecla i -->
+            <div class="key black" data-note="16"><span>9</span></div> <!-- Tecla preta associada à nota 16, ativada pela tecla 9 -->
+            <div class="key white" data-note="17"><span>o</span></div> <!-- Tecla branca associada à nota 17, ativada pela tecla o -->
+            <div class="key white" data-note="18"><span>p</span></div> <!-- Tecla branca associada à nota 18, ativada pela tecla p -->
+            <div class="key black" data-note="19"><span>-</span></div> <!-- Tecla preta associada à nota 19, ativada pela tecla - -->
+            <div class="key white" data-note="20"><span>[</span></div> <!-- Tecla branca associada à nota 20, ativada pela tecla [ -->
+            <div class="key black" data-note="21"><span>=</span></div> <!-- Tecla preta associada à nota 21, ativada pela tecla = -->
+            <div class="key white" data-note="22"><span>]</span></div> <!-- Tecla branca associada à nota 22, ativada pela tecla ] -->
+            <div class="key black" data-note="23"><span>&larr;</span></div> <!-- Tecla preta associada à nota 23, ativada pela tecla ← -->
+            <div class="key white" data-note="24"><span>\</span></div> <!-- Tecla branca associada à nota 24, ativada pela tecla \ -->
+            
+        </section>
+
+    </section>
+
+    <!-- Link para o arquivo JavaScript que vai adicionar interatividade às teclas -->
+    <script src="./js/script.js"></script>
+</body>
+</html>

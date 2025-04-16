@@ -1,134 +1,152 @@
+/* Importando a fonte Poppins do Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
- 
- * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins',  sans-serif;
- }
 
- body {
-    background-color: #ebebeb;
- }
+/* Resetando as margens, o padding e definindo box-sizing para todos os elementos para garantir que eles se comportem de forma consistente */
+* {
+    margin: 0; /* Remove a margem padrão */
+    padding: 0; /* Remove o padding padrão */
+    box-sizing: border-box; /* Faz com que a largura e altura dos elementos incluam padding e borda */
+    font-family: 'Poppins', sans-serif; /* Define a fonte global como Poppins */
+}
 
- .piano {
-    background-color: #121212;
-    width: 1000px;
-    height: 400px;
-    margin: 100px auto 0;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
- }
+/* Definindo o fundo do corpo da página */
+body {
+    background-color: #ebebeb; /* Cor de fundo cinza claro */
+}
 
- .controls {
-    color: rgba(255, 255, 255, 0.8);
-    padding: 30px;
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
- }
+/* Estilos para a seção principal do piano */
+.piano {
+    background-color: #121212; /* Fundo escuro para o piano */
+    width: 1000px; /* Largura fixa do piano */
+    height: 400px; /* Altura fixa */
+    margin: 100px auto 0; /* Centraliza o piano com uma margem superior de 100px */
+    border-radius: 20px; /* Arredonda os cantos */
+    display: flex; /* Usa flexbox para organizar o conteúdo dentro do piano */
+    flex-direction: column; /* Alinha o conteúdo na vertical */
+    align-items: center; /* Centraliza o conteúdo horizontalmente */
+    justify-content: space-between; /* Espaça o conteúdo entre o topo e o fundo */
+}
 
- .controls h1 {
-    font-weight: 500;
-    font-size: 1.4rem;
- }
+/* Estilos para a seção de controles (título e botão de alternância) */
+.controls {
+    color: rgba(255, 255, 255, 0.8); /* Cor de texto branca com opacidade */
+    padding: 30px; /* Espaçamento interno */
+    display: flex; /* Usando flexbox para alinhar os itens */
+    width: 100%; /* Faz com que a seção ocupe toda a largura disponível */
+    justify-content: space-between; /* Espaça o conteúdo entre os lados */
+}
 
- .switcher {
-    width: 50px;
-    height: 25px;
-    background-color: #555;
-    display: flex;
-    border-radius: 50px;
-    padding: 4px;
- }
+/* Estilo para o título dentro da seção de controles */
+.controls h1 {
+    font-weight: 500; /* Peso da fonte */
+    font-size: 1.4rem; /* Tamanho da fonte */
+}
 
- .switcher__button {
-    height: 100%;
-    aspect-ratio: 1/1;
-    background-color: #ddd;
-    border-radius: 25px;
- }
+/* Estilos para o botão de alternância (switcher) */
+.switcher {
+    width: 50px; /* Largura do switch */
+    height: 25px; /* Altura do switch */
+    background-color: #555; /* Cor de fundo do switch */
+    display: flex; /* Flexbox para posicionar o botão */
+    border-radius: 50px; /* Tornar o switch arredondado */
+    padding: 4px; /* Espaçamento interno */
+}
 
- .switcher--active {
-    background-color: #006eff;
-    justify-content: flex-end;
- }
+/* Estilo para o botão dentro do switch */
+.switcher__button {
+    height: 100%; /* Faz com que a altura seja igual ao do switch */
+    aspect-ratio: 1/1; /* Torna o botão quadrado */
+    background-color: #ddd; /* Cor do botão */
+    border-radius: 25px; /* Torna o botão arredondado */
+}
 
- .checkbox__label {
-    display: flex;
-    gap: 15px;
- }
+/* Quando o switch estiver ativado, muda o fundo do switch e posiciona o botão à direita */
+.switcher--active {
+    background-color: #006eff; /* Cor azul quando ativado */
+    justify-content: flex-end; /* Move o botão para a direita */
+}
 
- .piano__keys {
-    width: 100%;
-    height: 300px;
-    background-color: #181818;
-    border-radius: 15px;
-    padding: 30px 40px;
-    display: flex;
- }
+/* Estilo para a label que contém o switch */
+.checkbox__label {
+    display: flex; /* Alinha os itens dentro da label */
+    gap: 15px; /* Espaçamento entre os itens */
+}
 
- .white {
-    background-color: white;
-    flex-grow: 1;
-    border-radius: 5px;
-    border-bottom: 8px solid #ddd;
-    color: rgba(0, 0, 0, 0.3);
-    margin-left: -17px;
-    z-index: 1;
- }
+/* Estilos para a área das teclas do piano */
+.piano__keys {
+    width: 100%; /* Largura total */
+    height: 300px; /* Altura fixa */
+    background-color: #181818; /* Cor de fundo escura */
+    border-radius: 15px; /* Bordas arredondadas */
+    padding: 30px 40px; /* Espaçamento interno */
+    display: flex; /* Flexbox para alinhar as teclas */
+}
 
- .key span {
-    font-weight: 600;
-    position: absolute;
-    transition-duration: 300ms;
- }
+/* Estilos para as teclas brancas do piano */
+.white {
+    background-color: white; /* Cor branca das teclas */
+    flex-grow: 1; /* Faz as teclas brancas ocuparem o espaço restante */
+    border-radius: 5px; /* Bordas arredondadas */
+    border-bottom: 8px solid #ddd; /* Sombra na parte inferior das teclas */
+    color: rgba(0, 0, 0, 0.3); /* Cor do texto, uma cor escura e suave */
+    margin-left: -17px; /* Desloca as teclas brancas para a esquerda para que fiquem mais próximas umas das outras */
+    z-index: 1; /* Garante que as teclas brancas fiquem por baixo das teclas pretas */
+}
 
- .key {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 8px;
-    user-select: none;
- }
+/* Estilos para os spans dentro das teclas (onde o texto aparece) */
+.key span {
+    font-weight: 600; /* Peso da fonte para o texto */
+    position: absolute; /* Posiciona o texto de forma absoluta dentro da tecla */
+    transition-duration: 300ms; /* Transição suave para mudanças de estilo */
+}
 
- .black {
-    width: 40px;
-    background-color: linear-gradient(black, #333);
-    height: 150px;
-    border-radius: 0 0 5px 5px;
-    border-bottom: 8px solid #222;
-    margin-left: -20px;
-    z-index: 2;
-    color: rgba(255, 255, 255, 0.3);
- }
+/* Estilo geral para cada tecla */
+.key {
+    position: relative; /* Define a posição relativa para que o texto seja posicionado em relação à tecla */
+    display: flex; /* Flexbox para alinhamento do conteúdo */
+    align-items: flex-end; /* Alinha o conteúdo da tecla ao fundo */
+    justify-content: center; /* Centraliza o conteúdo */
+    padding-bottom: 8px; /* Espaçamento na parte inferior */
+    user-select: none; /* Desabilita a seleção de texto */
+}
 
- .piano__keys .white:nth-child(1) {
-    margin-left: 0;
- }
+/* Estilos para as teclas pretas do piano */
+.black {
+    width: 40px; /* Largura das teclas pretas */
+    background: linear-gradient(black, #333); /* Cor de fundo preta com um gradiente */
+    height: 150px; /* Altura das teclas pretas */
+    border-radius: 0 0 5px 5px; /* Bordas arredondadas na parte inferior */
+    border-bottom: 8px solid #222; /* Sombra na parte inferior das teclas */
+    margin-left: -20px; /* Desloca as teclas pretas para a esquerda para que fiquem mais próximas das teclas brancas */
+    z-index: 2; /* Garante que as teclas pretas fiquem acima das teclas brancas */
+    color: rgba(255, 255, 255, 0.3); /* Cor do texto, uma cor clara e suave */
+}
 
- .piano__keys .white:nth-child(5) {
-    margin-right: 20px;
- }
+/* Estilos adicionais para garantir que as margens das teclas brancas no piano fiquem bem posicionadas */
+.piano__keys .white:nth-child(1) {
+    margin-left: 0; /* Remove a margem esquerda da primeira tecla branca */
+}
 
- .piano__keys .white:nth-child(12) {
-    margin-right: 20px;
- }
+.piano__keys .white:nth-child(5) {
+    margin-right: 20px; /* Adiciona margem à direita da quinta tecla branca */
+}
 
- .piano__keys .white:nth-child(17) {
-    margin-right: 20px;
- }
+.piano__keys .white:nth-child(12) {
+    margin-right: 20px; /* Adiciona margem à direita da décima segunda tecla branca */
+}
 
- .black--pressed {
-    background: linear-gradient(#222, black);
-    border-bottom: none;
-    height: 148px;
- }
+.piano__keys .white:nth-child(17) {
+    margin-right: 20px; /* Adiciona margem à direita da décima sétima tecla branca */
+}
 
- .disabled-keys span {
-    opacity: 0;
- }
+/* Estilo para quando uma tecla preta é pressionada (mudando a cor de fundo e removendo a borda inferior) */
+.black--pressed {
+    background: linear-gradient(#222, black); /* Altera a cor para um tom mais escuro */
+    border-bottom: none; /* Remove a borda inferior */
+    height: 148px; /* Ajusta a altura quando pressionada */
+}
+
+/* Quando as teclas estão desativadas (ocultando os spans de texto) */
+.disabled-keys span {
+    opacity: 0; /* Torna o texto invisível */
+}
