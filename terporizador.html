@@ -3,46 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Temporizador no Relógio</title>
+  <title>temporizador</title>
   <style>
     body {
+      font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       background-color: #f4f4f4;
       margin: 0;
-      font-family: Arial, sans-serif;
     }
 
-    .timer-container {
+    .container {
+      text-align: center;
+    }
+
+    .time {
+      font-size: 40px;
+      font-weight: bold;
+    }
+
+    .inputs {
+      margin: 20px 0;
+    }
+
+    .inputs input {
+      padding: 10px;
+      font-size: 16px;
+      margin: 5px;
+      width: 60px;
       text-align: center;
     }
 
     .buttons {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
       margin-top: 20px;
     }
 
     .btn {
-      padding: 15px 30px;
+      padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
       background-color: #4CAF50;
       color: white;
       border: none;
       border-radius: 5px;
-      transition: background-color 0.3s;
+      margin: 5px;
     }
 
     .btn:hover {
       background-color: #45a049;
-    }
-
-    .btn:active {
-      background-color: #3e8e41;
     }
 
     .btn.stop {
@@ -53,64 +63,32 @@
       background-color: #e53935;
     }
 
-    .canvas-container {
-      position: relative;
-      width: 300px;
-      height: 300px;
-      margin: 0 auto;
-    }
-
-    #clockCanvas {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background-color: #fff;
-      border: 5px solid #333;
-    }
-
-    .time {
-      font-size: 24px;
-      font-weight: bold;
-      color: #333;
-      position: absolute;
-      top: 45%;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1;
-    }
-
-    .input-time {
-      padding: 10px;
-      font-size: 16px;
-      width: 50px;
+    #message {
+      font-size: 20px;
+      color: red;
       margin-top: 20px;
-    }
-
-    .input-container {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
+      visibility: hidden; /* Inicialmente escondido */
     }
   </style>
 </head>
 <body>
 
-  <div class="timer-container">
-    <div class="canvas-container">
-      <canvas id="clockCanvas" width="300" height="300"></canvas>
-      <div id="timeDisplay" class="time">00:00</div>
-    </div>
-
-    <div class="input-container">
-      <input type="number" id="inputHour" class="input-time" min="0" placeholder="Hora" />
-      <input type="number" id="inputMinute" class="input-time" min="1" placeholder="Minutos" />
-      <input type="number" id="inputSecond" class="input-time" min="0" placeholder="Segundos" />
-    </div>
+  <div class="container">
+    <div id="timeDisplay" class="time">00:00:00</div> <!-- Relógio no topo -->
+    
+    <!-- Mensagem de Tempo Esgotado -->
+    <div id="message">Tempo Esgotado!</div>
 
     <div class="buttons">
-      <button class="btn" id="startBtn">Iniciar</button>
-      <button class="btn stop" id="stopBtn" disabled>Parar</button>
-      <button class="btn" id="resetBtn">Reiniciar</button>
+      <button id="startBtn" class="btn">Iniciar</button>
+      <button id="stopBtn" class="btn stop" disabled>Parar</button>
+      <button id="resetBtn" class="btn">Reiniciar</button>
+    </div>
+    
+    <div class="inputs">
+      <input type="number" id="inputHours" placeholder="Horas" min="0" />
+      <input type="number" id="inputMinutes" placeholder="Minutos" min="0" />
+      <input type="number" id="inputSeconds" placeholder="Segundos" min="0" />
     </div>
   </div>
 
@@ -119,17 +97,16 @@
     let stopBtn = document.getElementById('stopBtn');
     let resetBtn = document.getElementById('resetBtn');
     let timeDisplay = document.getElementById('timeDisplay');
-    let inputHour = document.getElementById('inputHour');
-    let inputMinute = document.getElementById('inputMinute');
-    let inputSecond = document.getElementById('inputSecond');
-    let canvas = document.getElementById('clockCanvas');
-    let ctx = canvas.getContext('2d');
+    let inputHours = document.getElementById('inputHours');
+    let inputMinutes = document.getElementById('inputMinutes');
+    let inputSeconds = document.getElementById('inputSeconds');
+    let message = document.getElementById('message'); // Mensagem de tempo esgotado
 
     let timer;
     let seconds = 0;
     let isRunning = false;
-    let timeLimit = 0;
 
+    // Função para formatar o tempo (hh:mm:ss)
     function formatTime(sec) {
       let hours = Math.floor(sec / 3600);
       let minutes = Math.floor((sec % 3600) / 60);
@@ -137,66 +114,14 @@
       return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     }
 
-    function drawClock() {
-      let radius = canvas.width / 2;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Fundo do relógio
-      ctx.beginPath();
-      ctx.arc(radius, radius, radius - 5, 0, 2 * Math.PI);
-      ctx.fillStyle = '#fff';
-      ctx.fill();
-      ctx.lineWidth = 5;
-      ctx.strokeStyle = '#333';
-      ctx.stroke();
-
-      // Números
-      ctx.font = '20px Arial';
-      ctx.fillStyle = '#333';
-      for (let num = 1; num <= 12; num++) {
-        let angle = (Math.PI / 6) * (num - 3);
-        let x = radius + (radius - 30) * Math.cos(angle);
-        let y = radius + (radius - 30) * Math.sin(angle);
-        ctx.fillText(num, x - 10, y + 10);
-      }
-
-      // Ponteiros (sentido horário)
-      let angleHour = -(Math.PI / 6) * (Math.floor(seconds / 3600) % 12);
-      let angleMinute = -(Math.PI / 30) * (Math.floor(seconds / 60) % 60);
-      let angleSecond = -(Math.PI / 30) * (seconds % 60);
-
-      // Hora
-      ctx.beginPath();
-      ctx.moveTo(radius, radius);
-      ctx.lineTo(radius + (radius - 50) * Math.cos(angleHour), radius + (radius - 50) * Math.sin(angleHour));
-      ctx.lineWidth = 6;
-      ctx.strokeStyle = '#333';
-      ctx.stroke();
-
-      // Minuto
-      ctx.beginPath();
-      ctx.moveTo(radius, radius);
-      ctx.lineTo(radius + (radius - 40) * Math.cos(angleMinute), radius + (radius - 40) * Math.sin(angleMinute));
-      ctx.lineWidth = 4;
-      ctx.strokeStyle = '#666';
-      ctx.stroke();
-
-      // Segundo
-      ctx.beginPath();
-      ctx.moveTo(radius, radius);
-      ctx.lineTo(radius + (radius - 30) * Math.cos(angleSecond), radius + (radius - 30) * Math.sin(angleSecond));
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = '#4CAF50';
-      ctx.stroke();
-    }
-
-    function updateClock() {
+    // Função que atualiza o tempo no display
+    function updateTime() {
       timeDisplay.textContent = formatTime(seconds);
-      drawClock();
     }
 
+    // Inicia o temporizador
     function startTimer() {
-      if (isRunning || seconds <= 0) return;
+      if (isRunning) return;
       isRunning = true;
       stopBtn.disabled = false;
       startBtn.disabled = true;
@@ -204,46 +129,51 @@
       timer = setInterval(() => {
         if (seconds > 0) {
           seconds--;
-          updateClock();
+          updateTime();
         } else {
           clearInterval(timer);
           isRunning = false;
           stopBtn.disabled = true;
           startBtn.disabled = false;
+          message.style.visibility = 'visible'; // Exibe a mensagem quando o tempo acaba
         }
       }, 1000);
     }
 
+    // Para o temporizador
     function stopTimer() {
       clearInterval(timer);
       isRunning = false;
       stopBtn.disabled = true;
       startBtn.disabled = false;
+      message.style.visibility = 'hidden'; // Esconde a mensagem quando o timer for parado
     }
 
+    // Reinicia o temporizador
     function resetTimer() {
       stopTimer();
-      inputHour.value = "";
-      inputMinute.value = "";
-      inputSecond.value = "";
+      inputHours.value = "";
+      inputMinutes.value = "";
+      inputSeconds.value = "";
       seconds = 0;
-      updateClock();
+      updateTime();
+      message.style.visibility = 'hidden'; // Esconde a mensagem ao reiniciar
     }
 
+    // Quando o botão "Iniciar" é pressionado
     startBtn.addEventListener('click', () => {
-      let h = parseInt(inputHour.value) || 0;
-      let m = parseInt(inputMinute.value) || 0;
-      let s = parseInt(inputSecond.value) || 0;
-      seconds = h * 3600 + m * 60 + s;
-      updateClock();
+      let hours = parseInt(inputHours.value) || 0;
+      let minutes = parseInt(inputMinutes.value) || 0;
+      let sec = parseInt(inputSeconds.value) || 0;
+      seconds = hours * 3600 + minutes * 60 + sec;
+      updateTime();
       startTimer();
     });
 
+    // Eventos dos outros botões
     stopBtn.addEventListener('click', stopTimer);
     resetBtn.addEventListener('click', resetTimer);
-
-    updateClock();
   </script>
+
 </body>
 </html>
-
