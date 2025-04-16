@@ -1,105 +1,160 @@
-* { /* o asteristico serve para selecionar todos os elementos HTML*/
- box-sizing: border-box;
- margin: 0;
- padding: 0;
-}
-
-body { /* Aqui estamos criando um ga cor gradient para o Jogo da velha*/
-    height: 100vh;
-    width: 100vw;
+/* Aplica uma configuração base para todos os elementos da página */
+* {
+    box-sizing: border-box; /* Faz com que padding e border não aumentem o tamanho do elemento */
+    margin: 0;              /* Remove margens padrão do navegador */
+    padding: 0;             /* Remove espaçamentos internos padrão */
+  }
+  
+  /* Estiliza o corpo da página */
+  body {
+    height: 100vh; /* Altura total da janela do navegador */
+    width: 100vw;  /* Largura total da janela do navegador */
     background: linear-gradient(
-        90deg,
-        rgba(65, 185, 131, 1) 0%, 
-        rgba(0, 212, 255, 1) 100%
+      90deg,
+      rgba(65, 185, 131, 1) 0%,     /* Começa com um verde */
+      rgba(0, 212, 255, 1) 100%     /* Termina com azul no final */
     );
-}
-
-.board{ /* estamos criando ja o campo do jogo da velha e alinahndo os itens para ficarem centralizados */
-    display: grid;
+  }
+  
+  /* Tabuleiro do jogo */
+  .board {
+    display: grid; /* Usa grid para organizar as células */
     width: 100%;
     height: 100%;
-    display: grid;
-    justify-content: center;
-    align-content: center;
-    justify-items: center;
-    align-items: center;
-    grid-template-columns: repeat(3, auto);
-}
-
-.cell{ /* O campo do jogo da velha precisa estar bem organizado, assim nesta parte do codigo estamos indicando que ficará centralizado, e como as celulas vão se comportar */
+    justify-content: center;    /* Centraliza horizontalmente */
+    align-content: center;      /* Centraliza verticalmente */
+    justify-items: center;      /* Centraliza o conteúdo de cada célula */
+    align-items: center;        /* Alinha o conteúdo de cada célula ao centro */
+    grid-template-columns: repeat(3, auto); /* Cria 3 colunas do mesmo tamanho */
+  }
+  
+  /* Estilização visual ao passar o mouse em uma célula vazia, mostrando uma dica do símbolo da vez */
+  .board.x .cell:not(.x):not(.circle):hover::after,
+  .board.x .cell:not(.x):not(.circle):hover::before,
+  .board.circle .cell:not(.x):not(.circle):hover::after,
+  .board.x .cell:not(.x):not(.circle):hover::before {
+    background: rgba(255, 255, 255, 0.3) !important; /* Cor de dica (meio transparente) */
+  }
+  
+  /* CÉLULAS INDIVIDUAIS */
+  .cell {
     width: 100px;
     height: 100px;
-    border: 2px solid white;
+    border: 2px solid white; /* Borda branca ao redor */
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-}
-.cell.x,
-.cell.circle {
-    cursor: not-allowed;/* não permite clicar numa celula ja clicada antes*/
-}
-
-.cell:nth-child(1),
-.cell:nth-child(2),
-.cell:nth-child(3){
-    border-top: none; /* Estamos tirando a borda do topo */
-}
-
-.cell:nth-child(1),
-.cell:nth-child(4),
-.cell:nth-child(7){
-    border-left: none; /* Estamos tirando a borda da direita */
-}
-
-.cell:nth-child(7),
-.cell:nth-child(8),
-.cell:nth-child(9){
-    border-bottom: none; /* Estamos tirando a borda de baixo  */
-}
-
-.cell:nth-child(3),
-.cell:nth-child(6),
-.cell:nth-child(9){
-    border-right: none;
-}
-
-/* X */
-.cell.x::before, /*Uma pernida do X*/
-.cell.x::after,  /*A outra perninha do X*/
-.board.x .cell:not(.x):not(.circle):hover::after,
-.board.x .cell:not(.x):not(.circle):hover::before{
+    position: relative; /* Necessário para posicionar os "X" e círculos */
+  }
+  
+  /* Impede o jogador de clicar em células já preenchidas */
+  .cell.x,
+  .cell.circle {
+    cursor: not-allowed;
+  }
+  
+  /* Remove bordas específicas para formar o estilo da grade de jogo da velha */
+  .cell:nth-child(1),
+  .cell:nth-child(2),
+  .cell:nth-child(3) {
+    border-top: none; /* Remove borda superior da primeira linha */
+  }
+  
+  .cell:nth-child(1),
+  .cell:nth-child(4),
+  .cell:nth-child(7) {
+    border-left: none; /* Remove borda esquerda da primeira coluna */
+  }
+  
+  .cell:nth-child(7),
+  .cell:nth-child(8),
+  .cell:nth-child(9) {
+    border-bottom: none; /* Remove borda inferior da última linha */
+  }
+  
+  .cell:nth-child(3),
+  .cell:nth-child(6),
+  .cell:nth-child(9) {
+    border-right: none; /* Remove borda direita da última coluna */
+  }
+  
+  /* Estilo do X */
+  .cell.x::before,
+  .cell.x::after,
+  .board.x .cell:not(.x):not(.circle):hover::after,
+  .board.x .cell:not(.x):not(.circle):hover::before {
+    content: ""; /* Elemento visual para desenhar o X */
+    height: calc(100px * 0.15); /* Altura das linhas do X */
+    width: calc(100px * 0.9);  /* Largura das linhas do X */
+    background: white;         /* Cor branca para o X */
+    position: absolute;
+  }
+  
+  /* Primeira linha do X (diagonal) */
+  .cell.x::before,
+  .board.x .cell:not(.x):not(.circle):hover::before {
+    transform: rotate(45deg); /* Inclina a linha para formar um lado do X */
+  }
+  
+  /* Segunda linha do X (diagonal cruzando) */
+  .cell.x::after,
+  .board.x .cell:not(.x):not(.circle):hover::after {
+    transform: rotate(-45deg); /* Inclina a linha para o outro lado */
+  }
+  
+  /* Estilo do CÍRCULO (O) */
+  .cell.circle::before,
+  .cell.circle::after,
+  .board.circle .cell:not(.x):not(.circle):hover::after,
+  .board.circle .cell:not(.x):not(.circle):hover::after {
     content: "";
-    height: calc(100px * 0.15);
-    width: calc(100px * 0.9);
+    height: calc(100px * 0.9);   /* Altura do círculo */
+    width: calc(100px * 0.9);    /* Largura do círculo */
     background: white;
     position: absolute;
-}
-
-.cell.x::before,
-.board.x .cell:not(.x):not(.circle):hover::before {
-    transform: rotate(45deg);
-}
-
-.cell.x::after,
-.board.x .cell:not(.x):not(.circle):hover::after{
-    
-    transform: rotate(-45deg);
-}
-
-.cell.circle::before, /*Uma pernida do X*/
-.cell.circle::after { /*A outra perninha do X*/
-    content: "";
-    height: calc(100px * 0.9);
-    width: calc(100px * 0.9);
-    background: white;
-    position: absolute;
-    border-radius: 50%;
-}
-
-
-
-/* Mensagem De Vitoria */
-.winning-message{
-    display: none;
-}
+    border-radius: 50%;          /* Deixa redondo (círculo perfeito) */
+  }
+  
+  /* MENSAGEM DE VITÓRIA / EMPATE */
+  .winning-message {
+    display: none; /* Escondida por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;     /* Centraliza o conteúdo horizontalmente */
+    align-items: center;         /* Centraliza o conteúdo verticalmente */
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo preto semi-transparente */
+    flex-direction: column;      /* Coloca texto e botão em coluna */
+  }
+  
+  /* Botão para reiniciar o jogo */
+  .winning-message-button {
+    font-size: 2.5rem;
+    background-color: rgba(65, 185, 131, 1); /* Verde */
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    margin-top: 16px;
+    color: white;
+  }
+  
+  /* Efeito de hover no botão de reiniciar */
+  .winning-message-button:hover {
+    color: rgba(65, 185, 131, 1); /* Muda a cor do texto para verde */
+    background-color: white;     /* Fundo branco no hover */
+  }
+  
+  /* Texto da mensagem de vitória */
+  .winning-message-text {
+    color: white;
+    font-size: 5rem;
+  }
+  
+  /* Classe que exibe a mensagem de vitória (ativa o display: flex) */
+  .show-winning-message {
+    display: flex;
+  }
+  
